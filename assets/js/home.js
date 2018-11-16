@@ -6,7 +6,7 @@
   PM.bgm = new PM.BGM($('#bgm-audio'), {
     // src: '/audios/pm_bgm2.mp3',
     src: 'http://cdnoss.zhizuoh5.com/syspic/mp3/e07b470fc2ff4927a2ddd0ec9ad73f74.mp3',
-    autoplay: false
+    autoplay: true
   });
 
 
@@ -128,6 +128,7 @@
     return function() {
       var ps = [
         '为我们送上祝福吧',
+        '雍雍欢迎您',
         '新郎帅不帅',
         '新娘美不美',
         '来，在这输入，我带你飞',
@@ -142,6 +143,7 @@
         '你知道新郎和新娘是怎么认识的吗',
         '执子之手，与子一起抢红包',
         '天将降红包于斯人也',
+        '张张欢迎您',
         '百年好合，红包大额'
       ];
       var curr = last;
