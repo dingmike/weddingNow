@@ -4,7 +4,8 @@
   PM.tilt.init();
 
   PM.bgm = new PM.BGM($('#bgm-audio'), {
-    src: '/audios/pm_bgm2.mp3',
+    // src: '/audios/pm_bgm2.mp3',
+    src: 'http://cdnoss.zhizuoh5.com/syspic/mp3/e07b470fc2ff4927a2ddd0ec9ad73f74.mp3',
     autoplay: false
   });
 
