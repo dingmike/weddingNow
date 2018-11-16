@@ -32,7 +32,7 @@ module.exports = {
       getCheckinMsg: function(status) {
         var checkinMsg = {
           'coming': '我来现场，你们一起来吧',
-          'present': '我在现场，这里太嗨了'
+          'present': '我在现场，送祝福来啦！'
         };
 
         return checkinMsg[status];
