@@ -90,15 +90,15 @@ module.exports.connections = {
   ***************************************************************************/
 
   sequelizeServer: {
-    user: 'root',
-    password: '1qazqaz1',
+    user: 'userwedding',
+    password: 'mikeweddingZdj!@#123',
     database: 'wedding',
     options: {
       dialect: 'mysql',
       dialectOptions: {
         charset: 'utf8mb4'
       },
-      host: '127.0.0.1',
+      host: '47.106.85.97',
       port: 3306,
       logging: true,
       timezone: "+08:00",
