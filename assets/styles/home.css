@@ -264,6 +264,9 @@ textarea {
 .gallery-box, .gallery, .slick-list, .slick-track {
   height: 100%;
 }
+.img-box{
+  width: 100%;
+}
 
 .amap-copyright, .amap-logo {
   top: 0;
