@@ -9,6 +9,15 @@
     autoplay: true
   });
 
+//分享给朋友
+
+debugger
+
+
+
+
+
+
 
   var slick = $('.gallery').slick({
     arrows: false,
@@ -204,4 +213,8 @@
     PM.poller.poll();
     PM.board.init($('#wish-board'));
   }
-}(jQuery, PM, Account));
+
+
+
+}(jQuery, PM, Account ,wx));
+
