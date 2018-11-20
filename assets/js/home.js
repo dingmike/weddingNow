@@ -1,4 +1,64 @@
-(function($, PM, Account) {
+// const WechatJSSDK = require('wechat-jssdk/dist/client');
+
+
+(function($, PM, Account, WechatJSSDK) {
+  // var WechatJSSDK = require('wechat-jssdk/dist/client');
+//ES6 import
+//   import WechatJSSDK from 'wechat-jssdk/dist/client';
+//or import the original ES6 module from 'lib/client',
+// in which case you may need to include this into your webpack babel-loader process
+//   import WechatJSSDK from 'wechat-jssdk/lib/client';
+//   const wechatObj = new WechatJSSDK(config)
+
+// or if you do not have a bundle process, just add the script tag, and access "WechatJSSDK" from window, e.g:
+//   const wechatObj = new window.WechatJSSDK(config)
+///get-signature
+  alert(WechatJSSDK)
+  PM.request({
+    url: '/wechat/get-signature',
+    type: 'get'
+  }).then(function(res) {
+    alert(2222)
+    const config = {
+      //below are mandatory options to finish the wechat signature verification
+      //the 4 options below should be received like api '/get-signature' above
+      'appId': 'wx83a881064cf3448a',
+      'nonceStr': res.nonceStr,
+      'signature': res.signature,
+      'timestamp': res.timestamp,
+      //below are optional
+      //invoked if wechat signature sign succeeds,
+      //'this' will be the jssdk instance if it's a normal function,
+      // in v3.0.10+, jssdk instance will be passed to the callback, (wxObj) => {}
+      // in the up coming v4, "success"/"error" init callback will be replace by #initialize() which will return Promise, see below
+      'success': jssdkInstance => {},
+      //invoked if sign failed, in v3.0.10+, jssdk instance will be pass to the func, (err, wxObj) => {}
+      'error': (err, jssdkInstance) => {},
+      //enable debug mode, same as debug
+      'debug': true,
+      'jsApiList': [], //optional, pass all the jsapi you want, the default will be ['onMenuShareTimeline', 'onMenuShareAppMessage']
+      'customUrl': '' //set custom weixin js script url, usually you don't need to add this js manually
+    }
+    const wechatObj = new WechatJSSDK(config);
+//in the up coming v4, use "initialize" as Promise:
+
+    wechatObj.shareOnChat({
+      type: 'link',
+      title: 'title',
+      link: location.href,
+      imgUrl: 'images/btn-start.png',
+      desc: 'description',
+      success: function (){
+        alert(1)
+      },
+      cancel: function (){}
+    });
+  });
+
+
+
+  //------------------------------------------------------------------------------------
+
   if (location.href.indexOf('wall') > 0) return;
 
   PM.tilt.init();
@@ -250,5 +310,5 @@ debugger
     showInput.value = showContent;
   }
 
-}(jQuery, PM, Account ,wx));
+}(jQuery, PM, Account, WechatJSSDK));
 

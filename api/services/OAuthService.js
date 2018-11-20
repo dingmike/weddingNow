@@ -1,5 +1,8 @@
 var OAuth = require('wechat-oauth');
 var weixin = sails.config.weixin;
+var weixin2config = sails.config.weixin2;
+//require并初始化
+
 
 module.exports = {
 	getClient: function() {
@@ -31,5 +34,15 @@ module.exports = {
         resolve(user);
       });
     });
+  },
+  getAccessTokenNow:function (res) {
+
+    if (!this.client) {
+      this.client = new OAuth(weixin.appid, weixin.secret, function(openid, cb) {
+        WxAccount.getToken(openid).nodeify(cb);
+      }, function(openid, token, cb) {
+        WxAccount.setToken(openid, token).nodeify(cb);
+      });
+    }
   }
 };
