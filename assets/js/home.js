@@ -190,7 +190,7 @@ debugger
     for (var i = 0; i < arrMg.length; i++) {
       // 创建一个正则表达式
       var r = new RegExp(arrMg[i], "ig");
-      msg = msg.replace(r, "*");
+      msg = msg.replace(r, "❤");
     }
 
 
@@ -244,7 +244,7 @@ debugger
       // 创建一个正则表达式
       var r = new RegExp(arrMg[i], "ig");
 
-      showContent = showContent.replace(r, "*");
+      showContent = showContent.replace(r, "祝福");
     }
     // 显示的内容--showInput
     showInput.value = showContent;
