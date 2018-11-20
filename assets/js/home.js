@@ -180,6 +180,20 @@ debugger
     var $t = $(this);
     var $ipt = $('#ipt-wish');
     var msg = $.trim($ipt.val());
+
+
+
+    // 多个敏感词，这里直接以数组的形式展示出来
+    var arrMg = ["fuck", "tmd", "他妈的", "死","屎","靠","鬼","龟","骂","痴","操","屁","臀","奶","乳房","乳","日你妈","rnm","cnm","TMD","RNM","CNM","Cnm","Rnm","孙子","狗","猪八戒","哈皮","bi","牛逼","逼"];
+
+    // 正则表达式
+    for (var i = 0; i < arrMg.length; i++) {
+      // 创建一个正则表达式
+      var r = new RegExp(arrMg[i], "ig");
+      msg = msg.replace(r, "*");
+    }
+
+
     if ($t.prop('disabled') || !msg) {
       return;
     }
@@ -211,7 +225,30 @@ debugger
     PM.board.init($('#wish-board'));
   }
 
+  function filterxx() {
 
+    // 获取输入框的内容inputContent
+    var inputContent = input.value;
+
+    // 多个敏感词，这里直接以数组的形式展示出来
+    var arrMg = ["fuck", "tmd", "他妈的"];
+
+    // 显示的内容--showContent
+    var showContent = inputContent;
+
+    // 正则表达式
+    // \d 匹配数字
+
+    for (var i = 0; i < arrMg.length; i++) {
+
+      // 创建一个正则表达式
+      var r = new RegExp(arrMg[i], "ig");
+
+      showContent = showContent.replace(r, "*");
+    }
+    // 显示的内容--showInput
+    showInput.value = showContent;
+  }
 
 }(jQuery, PM, Account ,wx));
 
