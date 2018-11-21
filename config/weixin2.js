@@ -6,5 +6,5 @@ module.exports.weixin2 = {
   appSecret: '0921491fd0c34ba2c82a747f046a9f60', //prod
   // wechatRedirectUrl: 'http:///wedding.tunnel.qydev.com/home/resolve',
   wechatRedirectUrl: 'http://wedding.fecstec.com/home/resolve',//第一个为设置网页授权回调地址
-  wechatToken:'123123123123qazwsx'
+  wechatToken:'123123123123qazwsxedc'
 };
