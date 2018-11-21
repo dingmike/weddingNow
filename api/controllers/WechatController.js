@@ -15,12 +15,43 @@ module.exports = {
     res.send("error");
   },
   'get-signature': function (req, res) {
+
     console.log("222222222222222222222222222222222222222222222222");
     console.log(req.query.url);
-    wx.jssdk.getSignature(req.query.url).then( (signatureData) =>{
-      res.json(signatureData);
+
+    wx.jssdk.getSignature(req.query.url).then(function (signatureData) {
+      console.log("--------------")
+      console.log(signatureData)
+      res.json({
+        status: 'success',
+        data: signatureData
+      });
+    }, function (err) {
+      console.log(err)
+      res.json({
+        status: 'failed',
+        error: err.message
+      });
     });
-    res.send("error");
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*    wx.jssdk.getSignature(req.query.url).then( (signatureData) =>{
+      console.log(signatureData)
+      res.json(signatureData);
+      return;
+    });
+    res.send("error");*/
 //use async/await
 //const signatureData = await wx.jssdk.getSignature(req.query.url);
 //res.json(signatureData);

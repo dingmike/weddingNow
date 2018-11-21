@@ -2,60 +2,101 @@
 
 
 (function($, PM, Account, WechatJSSDK) {
-  // var WechatJSSDK = require('wechat-jssdk/dist/client');
-//ES6 import
-//   import WechatJSSDK from 'wechat-jssdk/dist/client';
-//or import the original ES6 module from 'lib/client',
-// in which case you may need to include this into your webpack babel-loader process
-//   import WechatJSSDK from 'wechat-jssdk/lib/client';
-//   const wechatObj = new WechatJSSDK(config)
-
-// or if you do not have a bundle process, just add the script tag, and access "WechatJSSDK" from window, e.g:
-//   const wechatObj = new window.WechatJSSDK(config)
-///get-signature
-  alert(WechatJSSDK)
   PM.request({
     url: '/wechat/get-signature',
-    type: 'get'
+    type: 'GET',
+    dataType: "json",
+    data:{url:location.href.split('#')[0]}
   }).then(function(res) {
-    alert(2222)
     const config = {
-      //below are mandatory options to finish the wechat signature verification
-      //the 4 options below should be received like api '/get-signature' above
-      'appId': 'wx83a881064cf3448a',
+      'appId': res.appId,
       'nonceStr': res.nonceStr,
       'signature': res.signature,
       'timestamp': res.timestamp,
-      //below are optional
-      //invoked if wechat signature sign succeeds,
-      //'this' will be the jssdk instance if it's a normal function,
-      // in v3.0.10+, jssdk instance will be passed to the callback, (wxObj) => {}
-      // in the up coming v4, "success"/"error" init callback will be replace by #initialize() which will return Promise, see below
-      'success': jssdkInstance => {},
+      'success': jssdkInstance => {
+        // alert(jssdkInstance)
+        /*jssdkInstance.wx.onMenuShareAppMessage({
+          title: 'test title',
+          type: 'link',
+          desc: 'share description',
+          success: function () {
+            alert('share on chat success');
+          },
+          cancel: function () {
+            console.log('share on chat canceled');
+          },
+          imgUrl: "http://pic1.ooopic.com/uploadfilepic/shiliang/2009-10-05/OOOPIC_00cyl_20091005e2c6eb1c889e342e.jpg"
+        });*/
+        jssdkInstance.shareOnChat({
+          type:'link',
+          title: '张定军&雍菊蓉的婚礼请柬',
+          link: window.location.href,
+          imgUrl: 'http://pc5e9xq7v.bkt.clouddn.com/1-740.jpg',
+          // imgUrl: 'http://bkcdn.fecstec.com/1/20181121/131023568c7537.jpg',
+          // imgUrl: 'http://bkcdn.fecstec.com/1/20181121/1305042199ed3.jpg',
+          desc: '我们将在12月26日举行婚礼，诚挚邀请您及其家人的到来',
+          success: function (res){
+            // alert("ok")
+          },
+          cancel: function (){
+            // alert("fail")
+          }
+        });
+        jssdkInstance.shareOnMoment({
+          title: '张定军&雍菊蓉的婚礼请柬',
+          link: window.location.href,
+          imgUrl: 'http://bkcdn.fecstec.com/1/20181121/131023568c7537.jpg',
+          success: function (res){
+            // alert("ok")
+          }
+        });
+
+      },
       //invoked if sign failed, in v3.0.10+, jssdk instance will be pass to the func, (err, wxObj) => {}
       'error': (err, jssdkInstance) => {},
       //enable debug mode, same as debug
-      'debug': true,
-      'jsApiList': [], //optional, pass all the jsapi you want, the default will be ['onMenuShareTimeline', 'onMenuShareAppMessage']
+      'debug': false,
+      'jsApiList': ['checkJsApi',
+        'onMenuShareTimeline',
+        'updateAppMessageShareData',
+        'updateTimelineShareData',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'], //optional, pass all the jsapi you want, the default will be ['onMenuShareTimeline', 'onMenuShareAppMessage']
       'customUrl': '' //set custom weixin js script url, usually you don't need to add this js manually
-    }
+    };
+    // const wechatObj = new WechatJSSDK(config);
     const wechatObj = new WechatJSSDK(config);
-//in the up coming v4, use "initialize" as Promise:
-
-    wechatObj.shareOnChat({
-      type: 'link',
-      title: 'title',
-      link: location.href,
-      imgUrl: 'images/btn-start.png',
-      desc: 'description',
-      success: function (){
-        alert(1)
-      },
-      cancel: function (){}
-    });
   });
-
-
 
   //------------------------------------------------------------------------------------
 
@@ -68,15 +109,6 @@
     src: 'http://cdnoss.zhizuoh5.com/syspic/mp3/e07b470fc2ff4927a2ddd0ec9ad73f74.mp3',
     autoplay: true
   });
-
-//分享给朋友
-
-debugger
-
-
-
-
-
 
 
   var slick = $('.gallery').slick({
