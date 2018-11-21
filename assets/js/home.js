@@ -104,11 +104,26 @@
 
   PM.tilt.init();
 
-  PM.bgm = new PM.BGM($('#bgm-audio'), {
-    // src: '/audios/pm_bgm2.mp3',
-    src: 'http://cdnoss.zhizuoh5.com/syspic/mp3/e07b470fc2ff4927a2ddd0ec9ad73f74.mp3',
-    autoplay: true
-  });
+  //getMusicUrl
+
+  PM.request({
+    url: '/home/getMusicUrl',
+    type: 'get',
+    dataType: "json",
+    data:{ID: Math.floor(Math.random()*10+1)} //1-10随机整数
+  }).then(function (res) {
+
+    PM.bgm = new PM.BGM($('#bgm-audio'), {
+      // src: '/audios/pm_bgm2.mp3',
+      // src: 'https://qnvideo.hunliji.com/o_1bn854ujc17nkj0q1fff9b2v29v.mp3',
+      src: res.musicUrl,
+      // src: 'https://qnvideo.hunliji.com/o_1bo9vjd7m5pd1gl115gmbou9k14.mp3',
+      // src: 'http://cdnoss.zhizuoh5.com/syspic/mp3/e07b470fc2ff4927a2ddd0ec9ad73f74.mp3',
+      autoplay: true
+    });
+  })
+
+
 
 
   var slick = $('.gallery').slick({

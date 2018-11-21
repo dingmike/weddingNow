@@ -3,9 +3,21 @@ var _ = require('lodash');
 
 module.exports = {
 
-
-
-
+  getMusicUrl:function (req,res) {
+    Promise.try(function() {
+      return MusicService.getVisibleMusic(req.query.ID);
+    }).then(function(music) {
+      res.json({
+        status: 'success',
+        data: music
+      });
+    }, function(err) {
+      res.json({
+        status: 'failed',
+        error: err.message
+      });
+    });
+  },
   index: function(req, res) {
     Promise.try(function() {
       if (req.wxAccount && req.wxAccount.accountID) {
